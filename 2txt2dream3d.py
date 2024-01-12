@@ -23,8 +23,12 @@ def txt2dream3d(texture, numSVEs):
         f = open(orientationsFile_out, 'w')
         for line in lines:
             tmp = list(map(float,(line.split(' '))))
-            a, b, c = map(lambda x: 0 if math.isinf(x) else x, tmp[1:4])
-            f.write(f'{a} {b} {c}\n')
+            grainId, rcomp1, rcomp2, rcomp3, phase = tmp
+            rodrigues4 = math.sqrt(rcomp1**2. + rcomp2**2. + rcomp3**2.)
+            rodrigues1 = -rcomp1/rodrigues4 if rodrigues4 != 0 else 0
+            rodrigues2 = rcomp2/rodrigues4 if rodrigues4 != 0 else 0
+            rodrigues3 = -rcomp3/rodrigues4 if rodrigues4 != 0 else 0
+            f.write(f'{rodrigues1} {rodrigues2} {rodrigues3} {rodrigues4}\n')
         f.close()
 
         # read number of grains
@@ -35,11 +39,11 @@ def txt2dream3d(texture, numSVEs):
         # modify Dream3D pipeline
         outputFile = f'{foldername}\\Output_FakeMatl_{i}.dream3d'
 
-        data = json.load(open(f'{curfolder}\\reread_using_grain_and_ori.json'))
+        data = json.load(open(f'{curfolder}\\reread_using_grain_and_ori2.json'))
         data['00']['InputFile'] = grainIDFile
         data['03']['TupleDimensions']['Table Data'] = [[n+1]]
         data['05']['InputFile'] = orientationsFile_out
-        data['14']['OutputFile'] = outputFile
+        data['15']['OutputFile'] = outputFile
 
         modifiedPipeline = f"{foldername}\\tmp_{i}.json"
         with open(modifiedPipeline, "w") as outfile:
@@ -51,8 +55,8 @@ def txt2dream3d(texture, numSVEs):
 
 
 txt2dream3d(30,200)
-txt2dream3d(45,200)
-txt2dream3d(90,200)
-txt2dream3d(160,100)
-txt2dream3d(200,4)
-txt2dream3d(250,2)
+# txt2dream3d(45,200)
+# txt2dream3d(90,200)
+# txt2dream3d(160,100)
+# txt2dream3d(200,4)
+# txt2dream3d(250,2)

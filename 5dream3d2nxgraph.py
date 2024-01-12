@@ -80,7 +80,7 @@ def write_nx_graph(texture, ith_sve):
     f = h5py.File(f'{foldername}\\Output_FakeMatl_{ith_sve}_duplicated.dream3d', 'r')
 
     eulerAngles = np.array(f['DataContainers']['SyntheticVolumeDataContainer']['CellFeatureData']['EulerAngles'])
-    eulerAngles = eulerAngles[:,:]
+    eulerAngles = eulerAngles[:,::-1]
 
     numNeighbors = np.array(f['DataContainers']['SyntheticVolumeDataContainer']['CellFeatureData']['NumNeighbors'])
     numNeighbors = numNeighbors[1:,0]
@@ -118,16 +118,15 @@ def write_nx_graph(texture, ith_sve):
 def func(ith_sve):
     
     ############## change here ##############
-    texture = 250
+    texture = 30
     #########################################
 
     write_nx_graph(texture,ith_sve)
 
-
 if __name__ == '__main__':
 
     ############### change here ###############
-    numSVEs = 2
+    numSVEs = 200
     ############################################
     
     pool_obj = multiprocessing.Pool(61)

@@ -19,28 +19,32 @@ def retxt2dream3d(texture, i):
     # modify orientationsFile_in to not have grainID
     orientationsFile_out = f'{foldername}\\orientations_{i}_out.txt'
     
-    f = open(orientationsFile_in, 'r'); lines = f.readlines(); f.close()
+    # f = open(orientationsFile_in, 'r'); lines = f.readlines(); f.close()
 
-    f = open(orientationsFile_out, 'w')
-    for line in lines:
-        tmp = list(map(float,(line.split(' '))))
-        a, b, c = map(lambda x: 0 if math.isinf(x) else x, tmp[1:4])
-        f.write(f'{a} {b} {c}\n')
-    f.close()
+    # f = open(orientationsFile_out, 'w')
+    # for line in lines:
+    #     tmp = list(map(float,(line.split(' '))))
+    #     grainId, rcomp1, rcomp2, rcomp3, phase = tmp
+    #     rodrigues4 = math.sqrt(rcomp1**2. + rcomp2**2. + rcomp3**2.)
+    #     rodrigues1 = -rcomp1/rodrigues4 if rodrigues4 != 0 else 0
+    #     rodrigues2 = rcomp2/rodrigues4 if rodrigues4 != 0 else 0
+    #     rodrigues3 = -rcomp3/rodrigues4 if rodrigues4 != 0 else 0
+    #     f.write(f'{rodrigues1} {rodrigues2} {rodrigues3} {rodrigues4}\n')
+    # f.close()
 
     # read number of grains
     f = open(orientationsFile_in, 'r'); lines = f.readlines(); f.close()
-    tmp = list(map(float,(line.split(' '))))
+    tmp = list(map(float,(lines[-1].split(' '))))
     n = int(tmp[0])
 
     # modify Dream3D pipeline
     outputFile = f'{foldername}\\Output_FakeMatl_{i}_duplicated.dream3d'
 
-    data = json.load(open(f'{curfolder}\\reread_using_grain_and_ori.json'))
+    data = json.load(open(f'{curfolder}\\reread_using_grain_and_ori2.json'))
     data['00']['InputFile'] = grainIDFile
     data['03']['TupleDimensions']['Table Data'] = [[n+1]]
     data['05']['InputFile'] = orientationsFile_out
-    data['14']['OutputFile'] = outputFile
+    data['15']['OutputFile'] = outputFile
 
     modifiedPipeline = f"{foldername}\\tmp_{i}.json"
     with open(modifiedPipeline, "w") as outfile:
@@ -67,7 +71,7 @@ def retxt2dream3d(texture, i):
 def func(i):
     
     ############## change here ##############
-    texture = 250
+    texture = 30
     #########################################
 
     retxt2dream3d(texture,i)
@@ -76,7 +80,7 @@ def func(i):
 if __name__ == '__main__':
 
     ############### change here ###############
-    numSVEs = 1
+    numSVEs = 200
     ############################################
     
     pool_obj = multiprocessing.Pool(61)
