@@ -72,7 +72,7 @@ end'''
 def func(i):
     
     ############## change here ##############
-    texture = 30
+    texture = 250
     #########################################
 
     duplicategrainIDs(texture,i)
@@ -81,7 +81,7 @@ def func(i):
 if __name__ == '__main__':
 
     ############### change here ###############
-    numSVEs = 200
+    numSVEs = 2
     ############################################
     
     pool_obj = multiprocessing.Pool(61)

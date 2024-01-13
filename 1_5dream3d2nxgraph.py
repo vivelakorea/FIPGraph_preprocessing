@@ -118,7 +118,7 @@ def write_nx_graph(texture, ith_sve):
 def func(ith_sve):
     
     ############## change here ##############
-    texture = 30
+    texture = 250
     #########################################
 
     write_nx_graph(texture,ith_sve)
@@ -126,7 +126,7 @@ def func(ith_sve):
 if __name__ == '__main__':
 
     ############### change here ###############
-    numSVEs = 200
+    numSVEs = 2
     ############################################
     
     pool_obj = multiprocessing.Pool(61)

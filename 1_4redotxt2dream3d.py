@@ -24,7 +24,7 @@ def retxt2dream3d(texture, i):
     # f = open(orientationsFile_out, 'w')
     # for line in lines:
     #     tmp = list(map(float,(line.split(' '))))
-    #     grainId, rcomp1, rcomp2, rcomp3, phase = tmp
+    #     grainId, rcomp1, rcomp2, rcomp3, phase = tmp[:4]
     #     rodrigues4 = math.sqrt(rcomp1**2. + rcomp2**2. + rcomp3**2.)
     #     rodrigues1 = -rcomp1/rodrigues4 if rodrigues4 != 0 else 0
     #     rodrigues2 = rcomp2/rodrigues4 if rodrigues4 != 0 else 0
@@ -71,7 +71,7 @@ def retxt2dream3d(texture, i):
 def func(i):
     
     ############## change here ##############
-    texture = 30
+    texture = 250
     #########################################
 
     retxt2dream3d(texture,i)
@@ -80,7 +80,7 @@ def func(i):
 if __name__ == '__main__':
 
     ############### change here ###############
-    numSVEs = 200
+    numSVEs = 2
     ############################################
     
     pool_obj = multiprocessing.Pool(61)
