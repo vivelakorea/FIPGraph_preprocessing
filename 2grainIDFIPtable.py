@@ -150,7 +150,7 @@ def write_fip_table_avg(fiptable_dir, fiphdf5_dir, texture, ith_sve):
 
 def func(ith_sve):
     ############## change here ##############
-    texture = 200
+    texture = 160
     #########################################
 
     curfolder = os.getcwd()
@@ -163,9 +163,11 @@ def func(ith_sve):
 if __name__ == '__main__':
 
     ############### change here ###############
-    numSVEs = 4
+    numSVEs = 100
     ############################################
     
-    pool_obj = multiprocessing.Pool(61)
-    pool_obj.map(func, list(range(numSVEs)))
-
+    # pool_obj = multiprocessing.Pool(61)
+    # pool_obj.map(func, list(range(numSVEs)))
+    for i in range(numSVEs):
+        func(i)
+        print(i,numSVEs)

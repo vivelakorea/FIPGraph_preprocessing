@@ -71,7 +71,7 @@ def retxt2dream3d(texture, i):
 def func(i):
     
     ############## change here ##############
-    texture = 250
+    texture = 160
     #########################################
 
     retxt2dream3d(texture,i)
@@ -80,8 +80,13 @@ def func(i):
 if __name__ == '__main__':
 
     ############### change here ###############
-    numSVEs = 2
+    numSVEs = 100
     ############################################
     
-    pool_obj = multiprocessing.Pool(61)
-    pool_obj.map(func, list(range(numSVEs)))
+    # pool_obj = multiprocessing.Pool(61)
+    # pool_obj.map(func, list(range(numSVEs)))
+
+    for i in range(numSVEs):
+        func(i)
+        print(i,numSVEs)
+    

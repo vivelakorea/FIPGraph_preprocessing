@@ -30,7 +30,7 @@ for texture in textures:
     ## Fill in datalist while doing scaling
 
     for i in range(numSVEs):
-        graph_file = f'{curfolder}\\{texture}\\sve_{i}'
+        graph_file = f'{curfolder}\\{texture}\\sve_top3_{i}'
         fip_file = f'{curfolder}\\{texture}\\fip_avg_{i}.csv' if avg_mode else f'{curfolder}\\fip_{i}.csv'
 
         G = nx.read_gpickle(graph_file)
@@ -40,7 +40,7 @@ for texture in textures:
 
         fip = np.loadtxt(fip_file, delimiter=',')[:,1]
 
-        with open(file=f'{curfolder}\\feat_scaler.pickle', mode='rb') as f:
+        with open(file=f'{curfolder}\\feat_top3_scaler.pickle', mode='rb') as f:
             nfeat_scaler = pickle.load(f)
         x = nfeat_scaler.transform(x)
 
@@ -77,16 +77,16 @@ if fraction < 1:
     train_datalist = datalist_new[:bnd_idx]
     val_datalist = datalist_new[bnd_idx:]
 
-    fname = f"{'_'.join(map(str, textures))}_frac{round(fraction*100)}.pickle"
+    fname = f"{'_'.join(map(str, textures))}_top3_frac{round(fraction*100)}.pickle"
     with open(f'{curfolder}\\loaders\\{fname}', 'wb') as f:
         pickle.dump(train_datalist, f, protocol=pickle.HIGHEST_PROTOCOL)
 
-    fname = f"{'_'.join(map(str, textures))}_frac{round((1-fraction)*100)}.pickle"
+    fname = f"{'_'.join(map(str, textures))}_top3_frac{round((1-fraction)*100)}.pickle"
     with open(f'{curfolder}\\loaders\\{fname}', 'wb') as f:
         pickle.dump(val_datalist, f, protocol=pickle.HIGHEST_PROTOCOL)
 
 # else:
 
-#     fname = f"{'_'.join(map(str, textures))}_frac{round(fraction*100)}.pickle"
+#     fname = f"{'_'.join(map(str, textures))}_top1_frac{round(fraction*100)}.pickle"
 #     with open(f'{curfolder}\\loaders\\{fname}', 'wb') as f:
 #         pickle.dump(datalist, f, protocol=pickle.HIGHEST_PROTOCOL)

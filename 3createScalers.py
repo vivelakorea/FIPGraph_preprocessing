@@ -42,25 +42,25 @@ for i in range(6):
     
 
 
-all_data = np.hstack((feature_data, fip_data, fip_avg_data))
-fout = open(f'{curfolder}\\all_XY_merged.csv', 'w')
-fout.write('\n'.join(','.join('%f' %x for x in y) for y in all_data)+'\n')
-fout.close()
+# all_data = np.hstack((feature_data, fip_data, fip_avg_data))
+# fout = open(f'{curfolder}\\all_XY_merged.csv', 'w')
+# fout.write('\n'.join(','.join('%f' %x for x in y) for y in all_data)+'\n')
+# fout.close()
 
-# feat_scaler = StandardScaler()
-# feat_scaler.fit(feature_data)
+feat_scaler = StandardScaler()
+feat_scaler.fit(feature_data)
 
-# with open(file=f'{curfolder}\\feat_scaler.pickle', mode='wb') as f:
-#     pickle.dump(feat_scaler, f, protocol=pickle.HIGHEST_PROTOCOL)
+with open(file=f'{curfolder}\\feat_scaler.pickle', mode='wb') as f:
+    pickle.dump(feat_scaler, f, protocol=pickle.HIGHEST_PROTOCOL)
 
-# fip_scaler = StandardScaler()
-# fip_scaler.fit(fip_data)
+fip_scaler = StandardScaler()
+fip_scaler.fit(fip_data)
 
-# with open(file=f'{curfolder}\\fip_scaler.pickle', mode='wb') as f:
-#     pickle.dump(fip_scaler, f, protocol=pickle.HIGHEST_PROTOCOL)
+with open(file=f'{curfolder}\\fip_scaler.pickle', mode='wb') as f:
+    pickle.dump(fip_scaler, f, protocol=pickle.HIGHEST_PROTOCOL)
 
-# fip_avg_scaler = StandardScaler()
-# fip_avg_scaler.fit(fip_avg_data)
+fip_avg_scaler = StandardScaler()
+fip_avg_scaler.fit(fip_avg_data)
 
-# with open(file=f'{curfolder}\\fip_avg_scaler.pickle', mode='wb') as f:
-#     pickle.dump(fip_avg_scaler, f, protocol=pickle.HIGHEST_PROTOCOL)
+with open(file=f'{curfolder}\\fip_avg_scaler.pickle', mode='wb') as f:
+    pickle.dump(fip_avg_scaler, f, protocol=pickle.HIGHEST_PROTOCOL)

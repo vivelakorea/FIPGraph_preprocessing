@@ -102,13 +102,13 @@ def write_nx_graph(texture, ith_sve):
 
         schmids = __get_fcc_schmids(ori, loading_direction=[1, 0, 0])
         sorted_schmid = sorted(schmids, reverse=True)
-        G.add_nodes_from([(feat, {"x": np.hstack([sorted_schmid])})])
+        G.add_nodes_from([(feat, {"x": np.hstack([ori])})])
 
     for feat, nbrs in nbr_dict.items():
         for nbr in nbrs:
             G.add_edge(feat, nbr, e=0)
 
-    nx.write_gpickle(G, f'{foldername}\\sve_{ith_sve}')
+    nx.write_gpickle(G, f'{foldername}\\sve_euler_{ith_sve}')
 
 ################################################################################################################################################################
 ################################################################################################################################################################
@@ -118,7 +118,7 @@ def write_nx_graph(texture, ith_sve):
 def func(ith_sve):
     
     ############## change here ##############
-    texture = 160
+    texture = 30
     #########################################
 
     write_nx_graph(texture,ith_sve)
@@ -126,12 +126,8 @@ def func(ith_sve):
 if __name__ == '__main__':
 
     ############### change here ###############
-    numSVEs = 100
+    numSVEs = 200
     ############################################
     
-    # pool_obj = multiprocessing.Pool(61)
-    # pool_obj.map(func, list(range(numSVEs)))
-
-    for i in range(numSVEs):
-        func(i)
-        print(i,numSVEs)
+    pool_obj = multiprocessing.Pool(61)
+    pool_obj.map(func, list(range(numSVEs)))

@@ -9,17 +9,17 @@ import torch_geometric
 curfolder = os.getcwd()
 
 textures_info = {
-    30: 200,
-    45: 200,
-    90: 200,
-    160: 100,
-    200: 4,
-    250: 2
+    # 30: 1,
+    # 45: 1,
+    # 90: 1,
+    # 160: 1,
+    # 200: 1,
+    250: 1
 }
 
-textures = [30]# ,45,90,160,200] # textures to be combined
+textures = [250]# ,45,90,160,200] # textures to be combined
 avg_mode = True # True if it uses averaged FIP over grain, False if it uses maximum sub-band FIP
-fraction = 0.9
+fraction = 1
 seed = 42
 
 
@@ -64,29 +64,29 @@ for texture in textures:
         print(f'{texture},{i}')
 
 if fraction < 1:
+    pass
+    # ## Shuffle, split and save
+    # np.random.seed(seed)
+    # bnd_idx = int(len(datalist)*fraction)
 
-    ## Shuffle, split and save
-    np.random.seed(seed)
-    bnd_idx = int(len(datalist)*fraction)
+    # # shuffle
+    # rand_ids = np.random.choice(len(datalist), len(datalist), replace=False)
+    # datalist_new = [datalist[i] for i in rand_ids]
 
-    # shuffle
-    rand_ids = np.random.choice(len(datalist), len(datalist), replace=False)
-    datalist_new = [datalist[i] for i in rand_ids]
+    # # split
+    # train_datalist = datalist_new[:bnd_idx]
+    # val_datalist = datalist_new[bnd_idx:]
 
-    # split
-    train_datalist = datalist_new[:bnd_idx]
-    val_datalist = datalist_new[bnd_idx:]
+    # fname = f"{'_'.join(map(str, textures))}_quat_frac{round(fraction*100)}.pickle"
+    # with open(f'{curfolder}\\loaders\\{fname}', 'wb') as f:
+    #     pickle.dump(train_datalist, f, protocol=pickle.HIGHEST_PROTOCOL)
 
-    fname = f"{'_'.join(map(str, textures))}_frac{round(fraction*100)}.pickle"
+    # fname = f"{'_'.join(map(str, textures))}_quat_frac{round((1-fraction)*100)}.pickle"
+    # with open(f'{curfolder}\\loaders\\{fname}', 'wb') as f:
+    #     pickle.dump(val_datalist, f, protocol=pickle.HIGHEST_PROTOCOL)
+
+else:
+
+    fname = "250single.pickle"
     with open(f'{curfolder}\\loaders\\{fname}', 'wb') as f:
-        pickle.dump(train_datalist, f, protocol=pickle.HIGHEST_PROTOCOL)
-
-    fname = f"{'_'.join(map(str, textures))}_frac{round((1-fraction)*100)}.pickle"
-    with open(f'{curfolder}\\loaders\\{fname}', 'wb') as f:
-        pickle.dump(val_datalist, f, protocol=pickle.HIGHEST_PROTOCOL)
-
-# else:
-
-#     fname = f"{'_'.join(map(str, textures))}_frac{round(fraction*100)}.pickle"
-#     with open(f'{curfolder}\\loaders\\{fname}', 'wb') as f:
-#         pickle.dump(datalist, f, protocol=pickle.HIGHEST_PROTOCOL)
+        pickle.dump(datalist, f, protocol=pickle.HIGHEST_PROTOCOL)

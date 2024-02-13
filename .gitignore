@@ -1,1 +1,3 @@
-all_XY_merged.csv
+*.csv
+*.xlsx
+*.pickle
